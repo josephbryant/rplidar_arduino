@@ -50,7 +50,18 @@ bool RPLidar::begin(HardwareSerial &serialobj)
     if (isOpen()) {
       end(); 
     }
-    _bined_serialdev = &serialobj;
+    _bined_serialdev = new RPSerial(&serialobj);
+    _bined_serialdev->end();
+    _bined_serialdev->begin(RPLIDAR_SERIAL_BAUDRATE);
+}
+
+bool RPLidar::begin(SoftwareSerial &serialobj)
+{
+    if (isOpen()) {
+      end(); 
+    }
+
+    _bined_serialdev = new RPSerial(&serialobj);
     _bined_serialdev->end();
     _bined_serialdev->begin(RPLIDAR_SERIAL_BAUDRATE);
 }
